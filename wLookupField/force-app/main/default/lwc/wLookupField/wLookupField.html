@@ -1,0 +1,54 @@
+<template>
+    <template if:true={canView}>
+        <template if:false={dataLoaded}>
+            <div class="skeleton-animate"></div>
+        </template>
+        <template if:true={dataLoaded}>
+            <template if:true={selected}>
+                <div class="selected-wrapper" role="none">
+                    <lightning-input class="selected-base" name={fieldApiName} label={fieldLabel} value={selection.Name} type="text" onchange={handleSearch} disabled></lightning-input>
+                    <div class="selected-extras">
+                        <lightning-icon class="selected-icon" size="x-small" icon-name={selection.Icon} alternative-text={selection.Name} title={selection.Name}></lightning-icon>
+                        <template if:true={canUpdate}>
+                            <lightning-button-icon class="selected-remove" icon-name="utility:close"  variant="bare" alternative-text="Remove" title="Remove" onclick={handleRemove}></lightning-button-icon>
+                        </template>
+                    </div>
+                </div>
+            </template>
+            <template if:false={selected}>
+                <div class="slds-form-element">
+                    <lightning-input tabindex="0" class="lookup-search" data-name="search" name={objectApiName} label={fieldLabel} type="search" onchange={handleSearch} onfocus={handleFocus} onblur={handleFocus}></lightning-input>
+                    <template if:true={searching}>
+                        <div class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={results} for:item="result">
+                                    <li tabindex="0" key={result.Id} data-id={result.Id} role="presentation" class="slds-listbox__item" onclick={hangleSelected}>
+                                        <div class="slds-media slds-listbox__option slds-listbox__option_entity" role="option">
+                                            <lightning-icon icon-name={result.Icon} size="small" alternative-text={result.Name} title={result.Name} class="slds-media__figure slds-listbox__option-icon"></lightning-icon>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{result.Name}</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </template>
+                                <template if:true={canCreate}>
+                                    <li tabindex="0" role="presentation" class="slds-listbox__item" onclick={handleCreate}>
+                                        <div class="slds-media slds-listbox__option slds-listbox__option_entity" role="option">
+                                            <lightning-icon icon-name="utility:add" size="small" alternative-text="Add new record" title="Add new record" class="slds-media__figure slds-listbox__option-icon"></lightning-icon>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">New {objectName}</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </template>
+    <template if:false={canView}>
+        <h3>You do not have access to this field.</h3>
+    </template>
+</template>

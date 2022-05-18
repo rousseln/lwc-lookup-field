@@ -1,0 +1,56 @@
+.skeleton-animate{
+    background-color: #eee;
+    background-image: linear-gradient(90deg, #eee 0px, #e8e8e8 40px, #eee 80px);
+    width: 100%;
+    height: 32px;
+    margin-top: 22px;
+    animation: skeleton 1.6s infinite linear;
+    border-radius: --lwc-borderRadiusMedium;
+}
+li .slds-media.slds-listbox__option {
+    align-items: center;
+}
+
+.slds-listbox__option-text {
+    font-size: 13px;
+}
+
+.selected-wrapper {
+    position: relative;
+}
+
+.selected-base {
+    --lwc-colorBackgroundInputDisabled: white;
+    --slds-c-input-spacing-horizontal-start: 2rem;
+    --slds-c-input-spacing-horizontal-end:0.5rem;
+    z-index: 0;
+    cursor: default;
+}
+
+.selected-extras {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -32px;
+    padding: 6px;
+    height: 32px;
+    z-index: 1;
+    position: relative;
+}
+.selected-icon {
+    --lwc-squareIconUtilitySmall:1.25rem;
+}
+
+.selected-remove {
+    flex:0 0 auto;
+    margin-top: -3px;
+}
+
+@keyframes skeleton {
+    0% {
+      background-position: -100px;
+    }
+    40%, 100% {
+      background-position: 140px;
+    }
+  }
